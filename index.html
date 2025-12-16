@@ -1,1 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 6.8 Standards Alignment - Understanding AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            height: 1600px;
+            overflow-y: auto;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.2em;
+        }
+        .header .subtitle {
+            font-size: 1.1em;
+            opacity: 0.95;
+            margin-bottom: 5px;
+        }
+        .header .lesson-info {
+            font-size: 0.95em;
+            opacity: 0.9;
+            font-style: italic;
+        }
+        .content {
+            padding: 30px;
+        }
+        .intro {
+            background: #e8f4f8;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #2196F3;
+            margin-bottom: 30px;
+        }
+        .standards-selector {
+            margin-bottom: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .standards-selector label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #667eea;
+            font-size: 1.1em;
+        }
+        .standards-selector select {
+            width: 100%;
+            padding: 12px;
+            font-size: 1em;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            background: white;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+        .standards-selector select:hover {
+            border-color: #764ba2;
+        }
+        .standards-selector select:focus {
+            outline: none;
+            border-color: #764ba2;
+            box-shadow: 0 0 0 3px rgba(118, 75, 162, 0.1);
+        }
+        .standards-content {
+            display: none;
+            animation: fadeIn 0.3s;
+        }
+        .standards-content.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .standard-section {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-left: 4px solid #667eea;
+        }
+        .standard-section h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+        .standard-section h3 {
+            color: #764ba2;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        .standard-item {
+            background: #f9f9f9;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 3px solid #9c27b0;
+        }
+        .standard-code {
+            font-weight: 600;
+            color: #764ba2;
+            font-family: 'Courier New', monospace;
+        }
+        .standard-description {
+            margin-top: 8px;
+            color: #555;
+        }
+        .alignment-note {
+            background: #fff3e0;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #ff9800;
+            margin-top: 15px;
+            font-style: italic;
+        }
+        .lesson-mapping {
+            background: #e8f5e9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .lesson-mapping strong {
+            color: #2e7d32;
+        }
+        ul {
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+        li {
+            margin: 8px 0;
+        }
+        .print-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+        .print-button:hover {
+            background: #764ba2;
+        }
+        @media print {
+            .print-button, .standards-selector {
+                display: none;
+            }
+            .standards-content {
+                display: block !important;
+            }
+            .container {
+                height: auto;
+                overflow: visible;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>State Standards Alignment</h1>
+            <div class="subtitle">Understanding AI: A Conceptual Approach</div>
+            <div class="lesson-info">Chapter 6, Lesson 6.8: You Know More Than You Think (Discussion Day)</div>
+        </div>
+        
+        <button class="print-button" onclick="window.print()">Print Standards</button>
+        
+        <div class="content">
+            <div class="intro">
+                <p><strong>Lesson 6.8</strong> is a Discussion Day focused on consolidation through articulation. Students take inventory of what they can explain about Chapters 5 and 6 concepts without notes, then select one concept to explain to a partner. After drafting a written explanation, students hide their notes and practice explaining orally while partners interrupt with clarifying questions. This calibration process reveals gaps between internal understanding and external articulation. Students then revise their explanations based on discovered gaps. Class discussion surfaces patterns about the articulation experience itself, and field journal reflections capture the meta-learning. The lesson prepares students for the Unit C exam while teaching transferable study skills grounded in learning science (retrieval practice, generation, calibration). The celebration framing creates psychological safety for productive struggle.</p>
+            </div>
+            
+            <div class="standards-selector">
+                <label for="standards-select">Select Standards Framework:</label>
+                <select id="standards-select" onchange="showStandards(this.value)">
+                    <option value="">-- Choose State Standards --</option>
+                    <option value="texas">Texas (TEKS)</option>
+                    <option value="california">California</option>
+                    <option value="florida">Florida</option>
+                    <option value="newyork">New York</option>
+                    <option value="pennsylvania">Pennsylvania</option>
+                    <option value="illinois">Illinois</option>
+                    <option value="ohio">Ohio</option>
+                    <option value="georgia">Georgia</option>
+                    <option value="northcarolina">North Carolina</option>
+                    <option value="michigan">Michigan</option>
+                    <option value="virginia">Virginia</option>
+                    <option value="washington">Washington</option>
+                    <option value="mississippi">Mississippi</option>
+                    <option value="ccss">Common Core State Standards (CCSS) - ELA</option>
+                    <option value="iste">ISTE Standards for Students</option>
+                    <option value="csta">CSTA K-12 Computer Science Standards</option>
+                    <option value="c3">C3 Framework for Social Studies</option>
+                </select>
+            </div>
 
+            <!-- Texas TEKS -->
+            <div id="texas" class="standards-content">
+                <div class="standard-section">
+                    <h2>Texas Essential Knowledge and Skills (TEKS)</h2>
+                    
+                    <div class="alignment-note">
+                        Lesson 6.8 addresses speaking and listening, explanatory writing, and critical thinking standards through collaborative articulation practice and reflective synthesis.
+                    </div>
+                    
+                    <h3>English Language Arts - Grade 11-12</h3>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">ELA.110.36.b.1</div>
+                        <div class="standard-description">Engage in meaningful and respectful discourse by listening actively, responding appropriately, and adjusting communication to audiences and purposes.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Partner practice requires active listening (the listener interrupts with clarifying questions) and adjusting explanations based on partner feedback to meet audience needs.</div>
+                    </div>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">ELA.110.36.b.24</div>
+                        <div class="standard-description">Listen actively, ask relevant questions to clarify information, and make pertinent comments.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> The listener's explicit role is to interrupt with clarifying questions: "Wait, what do you mean?" "Can you give an example?" "Why does that matter?"</div>
+                    </div>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">ELA.110.36.b.11</div>
+                        <div class="standard-description">Compose informational texts, including multi-paragraph essays that convey information about a topic.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Students compose written explanations of AI concepts (Steps 2 and 5), conveying complex information in accessible language for non-expert audiences.</div>
+                    </div>
+                    
+                    <h3>Government</h3>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">§113.45.c.19.A</div>
+                        <div class="standard-description">Use a problem-solving process to identify a problem, gather information, list and consider options, choose and implement a solution, and evaluate the effectiveness of the solution.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Students identify understanding gaps through partner practice, gather feedback, consider how to revise, implement revisions, and evaluate effectiveness through reflection.</div>
+                    </div>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">§113.45.c.20.A</div>
+                        <div class="standard-description">Use social studies terminology correctly.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Students practice translating AI terminology (training data, feedback loops, accountability) into accessible language while maintaining conceptual accuracy.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- California Standards -->
+            <div id="california" class="standards-content">
+                <div class="standard-section">
+                    <h2>California Common Core State Standards</h2>
+                    
+                    <div class="alignment-note">
+                        Lesson 6.8 addresses speaking/listening and writing standards through collaborative articulation practice and explanatory writing about AI concepts.
+                    </div>
+                    
+                    <h3>Speaking and Listening - Grades 11-12</h3>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">CCSS.ELA-LITERACY.SL.11-12.1</div>
+                        <div class="standard-description">Initiate and participate effectively in a range of collaborative discussions with diverse partners on grades 11-12 topics, texts, and issues, building on others' ideas and expressing their own clearly and persuasively.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Partner practice and class discussion require responsive, collaborative dialogue about AI concepts and the experience of articulation itself.</div>
+                    </div>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">CCSS.ELA-LITERACY.SL.11-12.1.C</div>
+                        <div class="standard-description">Propel conversations by posing and responding to questions that probe reasoning and evidence; ensure a hearing for a full range of positions on a topic or issue; clarify, verify, or challenge ideas and conclusions.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> The listener's role explicitly requires probing questions that clarify, verify, or challenge the explainer's reasoning.</div>
+                    </div>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">CCSS.ELA-LITERACY.SL.11-12.4</div>
+                        <div class="standard-description">Present information, findings, and supporting evidence, conveying a clear and distinct perspective, such that listeners can follow the line of reasoning.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Students present AI concepts to partners with attention to clarity of reasoning, using concrete examples as supporting evidence.</div>
+                    </div>
+                    
+                    <h3>Writing Standards</h3>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">CCSS.ELA-LITERACY.W.11-12.2</div>
+                        <div class="standard-description">Write informative/explanatory texts to examine and convey complex ideas, concepts, and information clearly and accurately through the effective selection, organization, and analysis of content.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Written explanations of AI concepts (Steps 2 and 5) require clear, accurate conveyance of complex ideas for non-expert readers.</div>
+                    </div>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">CCSS.ELA-LITERACY.W.11-12.5</div>
+                        <div class="standard-description">Develop and strengthen writing as needed by planning, revising, editing, rewriting, or trying a new approach, focusing on addressing what is most significant for a specific purpose and audience.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Step 5 requires revision based on partner feedback—the full write-test-revise cycle with focus on audience comprehension.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Florida Standards -->
+            <div id="florida" class="standards-content">
+                <div class="standard-section">
+                    <h2>Florida B.E.S.T. Standards</h2>
+                    
+                    <div class="alignment-note">
+                        Lesson 6.8 addresses communication, writing, and critical thinking standards through collaborative articulation and explanatory writing practice.
+                    </div>
+                    
+                    <h3>English Language Arts - Grades 11-12</h3>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">ELA.11.C.2.1</div>
+                        <div class="standard-description">Present information orally, with a logical organization, coherent focus, and credible evidence, while employing effective rhetorical devices where appropriate.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Partner practice requires oral presentation of AI concepts with logical organization and credible evidence (concrete examples).</div>
+                    </div>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">ELA.11.C.1.3</div>
+                        <div class="standard-description">Write expository texts to explain and/or analyze information from multiple sources, using a logical organization, varied purposeful transitions, and a tone appropriate to the task.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Written explanations require synthesis of chapter concepts with appropriate tone (conversational, accessible) for non-expert audience.</div>
+                    </div>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">ELA.11.C.1.5</div>
+                        <div class="standard-description">Improve writing by considering feedback from adults, peers, and/or online editing tools, revising to enhance purpose, clarity, structure, and style.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Step 5 explicitly requires revision based on peer feedback, enhancing clarity and addressing discovered gaps.</div>
+                    </div>
+                    
+                    <h3>Civics and Government</h3>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">SS.912.CG.2.8</div>
+                        <div class="standard-description">Explain how citizens can participate in and influence their local, state, and national government.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Understanding AI systems enables informed civic participation—students develop ability to explain algorithmic systems that affect government decisions and citizen experiences.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- New York Standards -->
+            <div id="newyork" class="standards-content">
+                <div class="standard-section">
+                    <h2>New York State Learning Standards</h2>
+                    
+                    <div class="alignment-note">
+                        Lesson 6.8 addresses speaking/listening and writing standards through collaborative articulation practice and reflective synthesis.
+                    </div>
+                    
+                    <h3>Speaking and Listening - Grades 11-12</h3>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">11-12SL1</div>
+                        <div class="standard-description">Initiate and participate effectively in a range of collaborative discussions with diverse partners, building on others' ideas and expressing their own clearly and persuasively.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Both partner practice and class discussion require collaborative, responsive dialogue about AI concepts and the experience of articulation.</div>
+                    </div>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">11-12SL1c</div>
+                        <div class="standard-description">Propel conversations by posing and responding to questions that probe reasoning and evidence.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> The listener role explicitly requires probing questions: "What do you mean?" "Give me an example." "Why does that matter?"</div>
+                    </div>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">11-12SL4</div>
+                        <div class="standard-description">Present information, findings, and supporting evidence clearly, concisely, and logically; organization, development, substance, and style are appropriate to purpose, audience, and task.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Students present AI concepts with attention to audience (non-expert), purpose (explanation), and appropriate style (conversational).</div>
+                    </div>
+                    
+                    <h3>Writing</h3>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">11-12W2</div>
+                        <div class="standard-description">Write informative/explanatory texts to examine and convey complex ideas, concepts, and information clearly and accurately.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Written explanations of AI concepts require clear, accurate conveyance of complex ideas for non-expert readers.</div>
+                    </div>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">11-12W5</div>
+                        <div class="standard-description">Develop and strengthen writing as needed by planning, revising, editing, rewriting, or trying a new approach.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Step 5 requires revision based on partner feedback—the explicit test-and-revise cycle for written explanations.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pennsylvania Standards -->
+            <div id="pennsylvania" class="standards-content">
+                <div class="standard-section">
+                    <h2>Pennsylvania Academic Standards</h2>
+                    
+                    <div class="alignment-note">
+                        Lesson 6.8 addresses speaking/listening and writing standards through collaborative articulation and explanatory writing practice.
+                    </div>
+                    
+                    <h3>Speaking and Listening</h3>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">1.5.11-12.A</div>
+                        <div class="standard-description">Initiate and participate effectively in collaborative discussions, building on others' ideas while expressing their own clearly.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Partner practice and class discussion require building on partner feedback and expressing AI concepts clearly in responsive dialogue.</div>
+                    </div>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">1.5.11-12.C</div>
+                        <div class="standard-description">Propel conversations by posing and responding to questions that probe reasoning and evidence.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> The listener's role explicitly requires probing questions that clarify reasoning and request evidence (examples).</div>
+                    </div>
+                    
+                    <h3>Writing</h3>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">1.4.11-12.B</div>
+                        <div class="standard-description">Write informative/explanatory texts to examine and convey complex ideas clearly and accurately.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Students compose written explanations of complex AI concepts in accessible language for non-expert audiences.</div>
+                    </div>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">1.4.11-12.T</div>
+                        <div class="standard-description">Develop and strengthen writing as needed by planning, revising, editing, rewriting, or trying a new approach.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Step 5 requires revision based on gaps discovered through partner practice.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Illinois Standards -->
+            <div id="illinois" class="standards-content">
+                <div class="standard-section">
+                    <h2>Illinois Learning Standards</h2>
+                    
+                    <div class="alignment-note">
+                        Lesson 6.8 addresses English language arts and social science inquiry standards through collaborative articulation and reflective synthesis.
+                    </div>
+                    
+                    <h3>English Language Arts</h3>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">IL.SL.11-12.1</div>
+                        <div class="standard-description">Initiate and participate effectively in collaborative discussions, building on others' ideas and expressing their own clearly.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Partner practice and class discussion require collaborative dialogue about AI concepts and the articulation experience.</div>
+                    </div>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">IL.W.11-12.2</div>
+                        <div class="standard-description">Write informative/explanatory texts to examine and convey complex ideas clearly and accurately.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Written explanations require clear, accurate conveyance of AI concepts for non-expert readers.</div>
+                    </div>
+                    
+                    <h3>Social Science Inquiry Skills</h3>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">SS.IS.5.9-12</div>
+                        <div class="standard-description">Identify evidence that draws information from multiple sources to revise or strengthen claims.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Students revise their explanations based on partner feedback, strengthening claims about AI concepts through the calibration process.</div>
+                    </div>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">SS.IS.8.9-12</div>
+                        <div class="standard-description">Use a variety of media to construct claims and communicate findings.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Students communicate understanding through both oral and written explanation, using multiple modes to construct and test their claims.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ohio Standards -->
+            <div id="ohio" class="standards-content">
+                <div class="standard-section">
+                    <h2>Ohio's Learning Standards</h2>
+                    
+                    <div class="alignment-note">
+                        Lesson 6.8 addresses speaking/listening and writing standards through collaborative articulation and explanatory writing practice.
+                    </div>
+                    
+                    <h3>Speaking and Listening</h3>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">SL.11-12.1</div>
+                        <div class="standard-description">Initiate and participate effectively in collaborative discussions, building on others' ideas and expressing their own clearly.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Partner practice requires responsive dialogue; class discussion synthesizes learning through structured conversation.</div>
+                    </div>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">SL.11-12.4</div>
+                        <div class="standard-description">Present information, findings, and supporting evidence clearly, concisely, and logically.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Students present AI concepts orally with attention to clarity, logic, and supporting evidence (examples).</div>
+                    </div>
+                    
+                    <h3>Writing</h3>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">W.11-12.2</div>
+                        <div class="standard-description">Write informative/explanatory texts to examine and convey complex ideas clearly and accurately.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Written explanations require clear, accurate conveyance of complex AI concepts for non-expert audiences.</div>
+                    </div>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">W.11-12.5</div>
+                        <div class="standard-description">Develop and strengthen writing as needed by planning, revising, editing, rewriting, or trying a new approach.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Step 5 requires revision based on gaps discovered through partner practice.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Georgia Standards -->
+            <div id="georgia" class="standards-content">
+                <div class="standard-section">
+                    <h2>Georgia Standards of Excellence</h2>
+                    
+                    <div class="alignment-note">
+                        Lesson 6.8 addresses English language arts standards through collaborative articulation and explanatory writing practice.
+                    </div>
+                    
+                    <h3>Speaking and Listening</h3>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">ELAGSE11-12SL1</div>
+                        <div class="standard-description">Initiate and participate effectively in collaborative discussions, building on others' ideas and expressing their own clearly.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Partner practice and class discussion require collaborative dialogue about AI concepts and the articulation experience.</div>
+                    </div>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">ELAGSE11-12SL1c</div>
+                        <div class="standard-description">Propel conversations by posing and responding to questions that probe reasoning and evidence.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> The listener's role explicitly requires probing questions that request clarification and examples.</div>
+                    </div>
+                    
+                    <h3>Writing</h3>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">ELAGSE11-12W2</div>
+                        <div class="standard-description">Write informative/explanatory texts to examine and convey complex ideas clearly and accurately.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Written explanations of AI concepts require clear, accurate conveyance for non-expert audiences.</div>
+                    </div>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">ELAGSE11-12W5</div>
+                        <div class="standard-description">Develop and strengthen writing as needed by planning, revising, editing, rewriting, or trying a new approach.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Step 5 requires revision based on partner feedback, strengthening explanations through the calibration process.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- North Carolina Standards -->
+            <div id="northcarolina" class="standards-content">
+                <div class="standard-section">
+                    <h2>North Carolina Standard Course of Study</h2>
+                    
+                    <div class="alignment-note">
+                        Lesson 6.8 addresses English language arts standards through collaborative articulation and explanatory writing practice.
+                    </div>
+                    
+                    <h3>Speaking and Listening</h3>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">SL.11-12.1</div>
+                        <div class="standard-description">Initiate and participate effectively in collaborative discussions, building on others' ideas and expressing their own clearly.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Partner practice and class discussion require collaborative, responsive dialogue about AI concepts.</div>
+                    </div>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">SL.11-12.4</div>
+                        <div class="standard-description">Present information clearly, concisely, and logically such that listeners can follow the line of reasoning.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Students present AI concepts orally with attention to clarity and logical reasoning.</div>
+                    </div>
+                    
+                    <h3>Writing</h3>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">W.11-12.2</div>
+                        <div class="standard-description">Write informative/explanatory texts to examine and convey complex ideas clearly and accurately.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Written explanations require clear, accurate conveyance of AI concepts.</div>
+                    </div>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">W.11-12.5</div>
+                        <div class="standard-description">Develop and strengthen writing as needed by planning, revising, editing, rewriting, or trying a new approach.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Step 5 requires revision based on discovered gaps through partner practice.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Michigan Standards -->
+            <div id="michigan" class="standards-content">
+                <div class="standard-section">
+                    <h2>Michigan Merit Curriculum Standards</h2>
+                    
+                    <div class="alignment-note">
+                        Lesson 6.8 addresses speaking/listening and writing standards through collaborative articulation and explanatory writing practice.
+                    </div>
+                    
+                    <h3>Speaking and Listening</h3>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">SL.11-12.1</div>
+                        <div class="standard-description">Initiate and participate effectively in collaborative discussions, building on others' ideas and expressing their own clearly.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Partner practice and class discussion require collaborative dialogue about AI concepts.</div>
+                    </div>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">SL.11-12.4</div>
+                        <div class="standard-description">Present information clearly, concisely, and logically.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Students present AI concepts orally with attention to clarity and logical organization.</div>
+                    </div>
+                    
+                    <h3>Writing</h3>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">W.11-12.2</div>
+                        <div class="standard-description">Write informative/explanatory texts to examine and convey complex ideas clearly and accurately.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Written explanations of AI concepts require clear, accurate conveyance for non-expert audiences.</div>
+                    </div>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">W.11-12.5</div>
+                        <div class="standard-description">Develop and strengthen writing as needed by revising, editing, rewriting, or trying a new approach.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Step 5 requires revision based on partner feedback.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Virginia Standards -->
+            <div id="virginia" class="standards-content">
+                <div class="standard-section">
+                    <h2>Virginia Standards of Learning</h2>
+                    
+                    <div class="alignment-note">
+                        Lesson 6.8 addresses English writing and speaking standards through collaborative articulation and explanatory writing practice.
+                    </div>
+                    
+                    <h3>Speaking and Listening</h3>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">11.1</div>
+                        <div class="standard-description">Make planned oral presentations independently and in small groups.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Partner practice is a structured oral presentation of AI concepts with built-in feedback mechanism.</div>
+                    </div>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">11.2</div>
+                        <div class="standard-description">Analyze and evaluate informative and persuasive presentations.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> The listener evaluates the explainer's presentation, noting what was clear, where gaps appeared, and what assumptions were made.</div>
+                    </div>
+                    
+                    <h3>Writing</h3>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">11.6</div>
+                        <div class="standard-description">Write in a variety of forms, including narrative, expository, and reflective.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Students write expository explanations (Steps 2 and 5) and reflective field journal entries about the learning experience.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Washington Standards -->
+            <div id="washington" class="standards-content">
+                <div class="standard-section">
+                    <h2>Washington State Learning Standards</h2>
+                    
+                    <div class="alignment-note">
+                        Lesson 6.8 addresses English language arts standards through collaborative articulation and explanatory writing practice.
+                    </div>
+                    
+                    <h3>Speaking and Listening</h3>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">SL.11-12.1</div>
+                        <div class="standard-description">Initiate and participate effectively in collaborative discussions, building on others' ideas and expressing their own clearly.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Partner practice and class discussion require collaborative, responsive dialogue about AI concepts.</div>
+                    </div>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">SL.11-12.4</div>
+                        <div class="standard-description">Present information clearly, concisely, and logically such that listeners can follow the line of reasoning.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Students present AI concepts with attention to clarity, logic, and audience comprehension.</div>
+                    </div>
+                    
+                    <h3>Writing</h3>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">W.11-12.2</div>
+                        <div class="standard-description">Write informative/explanatory texts to examine and convey complex ideas clearly and accurately.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Written explanations require clear, accurate conveyance of complex AI concepts.</div>
+                    </div>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">W.11-12.5</div>
+                        <div class="standard-description">Develop and strengthen writing as needed by planning, revising, editing, rewriting, or trying a new approach.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Step 5 requires revision based on discovered gaps through partner practice.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mississippi Standards -->
+            <div id="mississippi" class="standards-content">
+                <div class="standard-section">
+                    <h2>Mississippi College and Career Readiness Standards</h2>
+                    
+                    <div class="alignment-note">
+                        Lesson 6.8 emphasizes speaking/listening, explanatory writing, and reflective synthesis through collaborative articulation practice.
+                    </div>
+                    
+                    <h3>Speaking and Listening</h3>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">SL.11-12.1</div>
+                        <div class="standard-description">Initiate and participate effectively in a range of collaborative discussions with diverse partners, building on others' ideas and expressing their own clearly and persuasively.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Partner practice requires responsive dialogue; class discussion synthesizes learning through structured conversation about the articulation experience.</div>
+                    </div>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">SL.11-12.1c</div>
+                        <div class="standard-description">Propel conversations by posing and responding to questions that probe reasoning and evidence.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> The listener role explicitly requires probing questions: "What do you mean?" "Give me an example." "Why does that matter?"</div>
+                    </div>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">SL.11-12.4</div>
+                        <div class="standard-description">Present information, findings, and supporting evidence clearly, concisely, and logically.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Students present AI concepts orally with attention to clarity, supporting evidence (examples), and logical organization.</div>
+                    </div>
+                    
+                    <h3>Writing</h3>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">W.11-12.2</div>
+                        <div class="standard-description">Write informative/explanatory texts to examine and convey complex ideas, concepts, and information clearly and accurately.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Both the initial draft and revised explanation require clear, accurate conveyance of complex AI concepts in written form.</div>
+                    </div>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">W.11-12.5</div>
+                        <div class="standard-description">Develop and strengthen writing as needed by planning, revising, editing, rewriting, or trying a new approach.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Step 5 requires revision based on partner feedback—the explicit test-and-revise cycle for written explanations.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Common Core Standards -->
+            <div id="ccss" class="standards-content">
+                <div class="standard-section">
+                    <h2>Common Core State Standards - English Language Arts</h2>
+                    
+                    <div class="alignment-note">
+                        Lesson 6.8 addresses speaking/listening and writing standards through collaborative articulation practice and explanatory writing about AI concepts.
+                    </div>
+                    
+                    <h3>Speaking and Listening Standards - Grades 11-12</h3>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">CCSS.ELA-LITERACY.SL.11-12.1</div>
+                        <div class="standard-description">Initiate and participate effectively in a range of collaborative discussions with diverse partners on grades 11-12 topics, texts, and issues, building on others' ideas and expressing their own clearly and persuasively.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Partner practice and class discussion require building on partner questions/feedback and expressing AI concepts clearly in responsive dialogue.</div>
+                    </div>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">CCSS.ELA-LITERACY.SL.11-12.1.C</div>
+                        <div class="standard-description">Propel conversations by posing and responding to questions that probe reasoning and evidence; ensure a hearing for a full range of positions on a topic or issue; clarify, verify, or challenge ideas and conclusions.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> The listener's role explicitly requires interrupting with clarifying questions—"Wait, what do you mean?" "Can you give an example?"—that probe reasoning and challenge unclear conclusions.</div>
+                    </div>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">CCSS.ELA-LITERACY.SL.11-12.4</div>
+                        <div class="standard-description">Present information, findings, and supporting evidence, conveying a clear and distinct perspective, such that listeners can follow the line of reasoning, alternative or opposing perspectives are addressed, and the organization, development, substance, and style are appropriate to purpose, audience, and task.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Students present AI concepts to partners with attention to audience (non-expert), clarity of reasoning, and appropriate style (conversational, not textbook).</div>
+                    </div>
+                    
+                    <h3>Writing Standards</h3>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">CCSS.ELA-LITERACY.W.11-12.2</div>
+                        <div class="standard-description">Write informative/explanatory texts to examine and convey complex ideas, concepts, and information clearly and accurately through the effective selection, organization, and analysis of content.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Students write explanations of complex AI concepts (Steps 2 and 5), with the revision step emphasizing clarity and accuracy based on partner feedback.</div>
+                    </div>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">CCSS.ELA-LITERACY.W.11-12.5</div>
+                        <div class="standard-description">Develop and strengthen writing as needed by planning, revising, editing, rewriting, or trying a new approach, focusing on addressing what is most significant for a specific purpose and audience.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Step 5 explicitly requires revision based on discovered gaps—the full write-test-revise cycle with focus on audience comprehension.</div>
+                    </div>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">CCSS.ELA-LITERACY.W.11-12.10</div>
+                        <div class="standard-description">Write routinely over extended time frames and shorter time frames for a range of tasks, purposes, and audiences.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Students write both timed drafts (6 minutes) and reflective field journal entries—varied purposes and time frames within a single lesson.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ISTE Standards -->
+            <div id="iste" class="standards-content">
+                <div class="standard-section">
+                    <h2>ISTE Standards for Students</h2>
+                    
+                    <div class="alignment-note">
+                        Lesson 6.8 addresses knowledge construction, creative communication, and global collaboration standards through articulation practice and collaborative learning.
+                    </div>
+                    
+                    <h3>Knowledge Constructor</h3>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">3.a</div>
+                        <div class="standard-description">Students plan and employ effective research strategies to locate information and other resources for their intellectual or creative pursuits.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Students consolidate knowledge from Chapters 5-6 by identifying what they know and where gaps exist, then strategically revise their understanding based on partner feedback.</div>
+                    </div>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">3.d</div>
+                        <div class="standard-description">Students build knowledge by actively exploring real-world issues and problems, developing ideas and theories and pursuing answers and solutions.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Partner practice requires students to actively construct and test their explanations of AI concepts, discovering through dialogue where their theories need refinement.</div>
+                    </div>
+                    
+                    <h3>Creative Communicator</h3>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">6.a</div>
+                        <div class="standard-description">Students choose the appropriate platforms and tools for meeting the desired objectives of their creation or communication.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Students craft explanations for specific audiences (family member, friend) and learn to translate technical concepts into accessible language appropriate for that audience.</div>
+                    </div>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">6.d</div>
+                        <div class="standard-description">Students publish or present content that customizes the message and medium for their intended audiences.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Partner practice is oral presentation of AI concepts, customized for a non-expert listener who provides real-time feedback on clarity and comprehensibility.</div>
+                    </div>
+                    
+                    <h3>Global Collaborator</h3>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">7.b</div>
+                        <div class="standard-description">Students use collaborative technologies to work with others, including peers, experts or community members, to examine issues and problems from multiple viewpoints.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Partner practice is collaborative learning—each role (explainer, listener) teaches something different, and partners help each other identify gaps in understanding.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CSTA Standards -->
+            <div id="csta" class="standards-content">
+                <div class="standard-section">
+                    <h2>CSTA K-12 Computer Science Standards</h2>
+                    
+                    <div class="alignment-note">
+                        Lesson 6.8 addresses impacts of computing standards through articulation of AI concepts from Chapters 5 and 6.
+                    </div>
+                    
+                    <h3>Impacts of Computing</h3>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">3A-IC-24</div>
+                        <div class="standard-description">Evaluate the ways computing impacts personal, ethical, social, economic, and cultural practices.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Students articulate concepts from both chapters—probability/prediction (Ch 5) and AI decisions about people (Ch 6)—demonstrating understanding of computing's societal impacts through their explanations.</div>
+                    </div>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">3A-IC-25</div>
+                        <div class="standard-description">Test and refine computational artifacts to reduce bias and equity deficits.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Students explain concepts like why bias cannot simply be "removed" and how different fairness definitions conflict, demonstrating nuanced understanding of equity challenges in AI.</div>
+                    </div>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">3B-IC-25</div>
+                        <div class="standard-description">Evaluate computational artifacts to maximize their beneficial effects and minimize harmful effects on society.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> The concept list includes feedback loops, accountability distribution, and prediction limits—all requiring students to explain tradeoffs inherent in AI systems.</div>
+                    </div>
+                    
+                    <h3>Collaboration</h3>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">3A-AP-23</div>
+                        <div class="standard-description">Document design decisions using text, graphics, presentations, and/or demonstrations in the development of complex programs.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Students document their understanding through written drafts, oral explanations, and revised written explanations—multiple modes of demonstrating conceptual mastery.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- C3 Framework -->
+            <div id="c3" class="standards-content">
+                <div class="standard-section">
+                    <h2>C3 Framework for Social Studies</h2>
+                    
+                    <div class="alignment-note">
+                        Lesson 6.8 addresses communicating conclusions and taking informed action through articulation practice that prepares students to apply AI literacy in civic contexts.
+                    </div>
+                    
+                    <h3>Dimension 4: Communicating Conclusions and Taking Informed Action</h3>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">D4.1.9-12</div>
+                        <div class="standard-description">Construct arguments using precise and knowledgeable claims, with evidence from multiple sources, while acknowledging counterclaims and evidentiary weaknesses.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Students construct explanations of AI concepts, discover weaknesses through partner feedback, and revise their arguments—the full cycle of argumentative refinement.</div>
+                    </div>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">D4.2.9-12</div>
+                        <div class="standard-description">Construct explanations using sound reasoning, correct sequence, examples, and details with relevant information and data, while acknowledging the strengths and weaknesses of the explanation.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> The activity explicitly requires concrete examples, ordinary language, and acknowledgment of explanation gaps—directly aligned with this standard.</div>
+                    </div>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">D4.6.9-12</div>
+                        <div class="standard-description">Use disciplinary and interdisciplinary lenses to understand the characteristics and causes of local, regional, and global problems; instances of such problems in multiple contexts; and challenges and opportunities faced by those trying to address these problems.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Section F frames practical application: using AI literacy to help confused friends/family interpret algorithmic experiences—taking informed action in everyday contexts.</div>
+                    </div>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">D4.7.9-12</div>
+                        <div class="standard-description">Assess options for individual and collective action to address local, regional, and global problems by engaging in self-reflection, strategy identification, and complex causal reasoning.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Field journal prompts require self-reflection on understanding gaps and identification of real people/situations where explanatory skills could help.</div>
+                    </div>
+                    
+                    <h3>Dimension 2: Applying Disciplinary Concepts and Tools</h3>
+                    
+                    <div class="standard-item">
+                        <div class="standard-code">D2.Civ.2.9-12</div>
+                        <div class="standard-description">Analyze the role of citizens in the U.S. political system, with attention to various theories of democracy, changes in Americans' participation over time, and alternative models from other countries, past and present.</div>
+                        <div class="lesson-mapping"><strong>Lesson 6.8 Alignment:</strong> Students practice informed civic participation by developing ability to explain AI systems that affect democratic processes and citizen experiences.</div>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- End content -->
+    </div><!-- End container -->
+    
+    <script>
+        function showStandards(value) {
+            // Hide all standards content
+            const allContent = document.querySelectorAll('.standards-content');
+            allContent.forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Show selected standards
+            if (value) {
+                const selectedContent = document.getElementById(value);
+                if (selectedContent) {
+                    selectedContent.classList.add('active');
+                }
+            }
+        }
+    </script>
+</body>
+</html>
